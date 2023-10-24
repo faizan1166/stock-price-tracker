@@ -1,7 +1,7 @@
 const mongoose =require('mongoose')
 require("dotenv").config()
 
-mongoose.connect(process.env.DB_CONNECTION_STRING,{useUnifiedTopology:true},(err,res)=>{
+mongoose.connect("mongodb+srv://faizan:faizan123@cluster0.tai5b58.mongodb.net/stock?retryWrites=true&w=majority",{useUnifiedTopology:true},(err,res)=>{
     if(err){
         console.log('connection error',err);
     }
