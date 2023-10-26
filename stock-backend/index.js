@@ -13,6 +13,7 @@ const stockSchema = new mongoose.Schema({
 
 const Stock = mongoose.model('Stock', stockSchema);
 
+
 const predefinedStocks = [
   { name: 'AAPL', price: 150.12 },
   { name: 'GOOGL', price: 2750.67 },
@@ -30,6 +31,21 @@ predefinedStocks.forEach(async (stock) => {
   await Stock.findOneAndUpdate({ name: stock.name }, stock, { upsert: true, new: true });
 });
 
+const updateStockPrice = async (stockName, newPrice) => {
+  const stock = await Stock.findOneAndUpdate({ name: stockName }, { price: newPrice }, { new: true });
+  return stock;
+};
+
+const changeStockPrice = () => {
+  predefinedStocks.forEach(async (stock) => {
+    const newPrice = stock.price + Math.random() * 10 - 5; // Simulated random price change
+    const updatedStock = await updateStockPrice(stock.name, newPrice);
+    console.log(`Stock ${updatedStock.name} price updated to ${updatedStock.price}`);
+  });
+};
+
+setInterval(changeStockPrice, 30000); // Update prices every 30 seconds
+
 app.get('/api/stock-price/:name', async (req, res) => {
   const stockName = req.params.name;
   const stock = await Stock.findOne({ name: stockName });
@@ -42,5 +58,4 @@ app.get('/api/stock-price/:name', async (req, res) => {
 
 app.listen(5000, () => {
   console.log(`Server is running on port 5000`);
-
-})
+});
