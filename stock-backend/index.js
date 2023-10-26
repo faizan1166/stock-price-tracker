@@ -50,7 +50,8 @@ app.get('/api/stock-price/:name', async (req, res) => {
   const stockName = req.params.name;
   const stock = await Stock.findOne({ name: stockName });
   if (stock) {
-    res.json({ price: stock.price });
+    const formattedPrice = stock.price.toFixed(2);
+    res.json({ price: formattedPrice });
   } else {
     res.status(404).json({ error: 'Stock not found' });
   }
