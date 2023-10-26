@@ -36,13 +36,21 @@ const updateStockPrice = async (stockName, newPrice) => {
   return stock;
 };
 
-const changeStockPrice = () => {
-  predefinedStocks.forEach(async (stock) => {
-    const newPrice = stock.price + Math.random() * 10 - 5; // Simulated random price change
+//const changeStockPrice = () => {
+//  predefinedStocks.forEach(async (stock) => {
+ //   const newPrice = stock.price + Math.random() * 10 - 5; // Simulated random price change
+//    const updatedStock = await updateStockPrice(stock.name, newPrice);
+//    console.log(`Stock ${updatedStock.name} price updated to ${updatedStock.price}`);
+ // });
+//};
+const changeStockPrice = async () => {
+  for (const stock of predefinedStocks) {
+    const newPrice = stock.price + Math.random() * 10 - 5;
     const updatedStock = await updateStockPrice(stock.name, newPrice);
     console.log(`Stock ${updatedStock.name} price updated to ${updatedStock.price}`);
-  });
+  }
 };
+
 
 setInterval(changeStockPrice, 30000); // Update prices every 30 seconds
 
