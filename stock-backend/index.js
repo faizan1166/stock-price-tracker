@@ -44,7 +44,7 @@ const changeStockPrice = () => {
   });
 };
 
-setInterval(changeStockPrice, 30000); // Update prices every 30 seconds
+setInterval(changeStockPrice, 30 * 60 * 1000); // Update prices every 30 seconds
 
 app.get('/api/stock-price/:name', async (req, res) => {
   const stockName = req.params.name;
